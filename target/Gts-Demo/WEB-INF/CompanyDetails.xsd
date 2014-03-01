@@ -1,0 +1,11 @@
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	elementFormDefault="qualified" targetNamespace="http://mycompany.com/hr/schemas"
+	xmlns:hr="http://gtsdemo.com/company/schemas">
+	<xs:complexType name="CompanyDetail">
+		<xs:sequence>
+			<xs:element name="CompanyID" type="xs:string"  />
+			<xs:element name="CompanyName" type="xs:string" />
+			<xs:element name="ContactPerson" type="xs:string" />
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>

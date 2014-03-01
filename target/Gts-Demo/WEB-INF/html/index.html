@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en" ng-app="GtsDemoApp">
+<head>
+<meta charset="utf-8">
+<title>Gts Demo</title>
+<link rel="stylesheet" href="resources/css/app.css" />
+<link rel="stylesheet" href="resources/css/style.css" />
+<link rel="stylesheet" href="resources/bootstrap/css/bootstrap.min.css" />
+</head>
+<body   style="background-color: #EDF0F3;""  >
+
+	<div id="main">
+		<div id="header">
+			<div id="logo">
+				<div id="logo_text">
+					<img style="height: 75px; width: 75px;" src="resources/images/gts_india.gif"/>
+					<div id="title">Sample Application</div>
+				</div>
+				
+			</div>
+		</div>
+			<div style="padding-top: 0px;height: 75%" ng-view>
+			
+			</div>
+<div style="z-index: 1" id="footer">
+	<p>Copyright &copy; GTS</p>
+</div>
+
+		
+
+
+		<script src="resources/js/lib/angular/angular.js"></script>
+		<script src="resources/js/app.js"></script>
+		<script src="resources/js/services.js"></script>
+		<script src="resources/js/controllers/CompanyController.js"></script>
+		<script src="resources/js/filters.js"></script>
+		<script src="resources/js/directives.js"></script>
+</body>
+</html>
