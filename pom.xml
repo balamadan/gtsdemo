@@ -135,7 +135,7 @@
 			<version>1.4</version>
 			<exclusions>
 				<exclusion>
-					<groupId>commons-logging</groupId>
+					<groupId>commons-logging</groupId> 
 					<artifactId>commons-logging</artifactId>
 				</exclusion>
 				<exclusion>
