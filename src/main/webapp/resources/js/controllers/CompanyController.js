@@ -45,7 +45,6 @@ var CompanyController = function($scope, $http) {
 
     $scope.removeCompany = function(id) {
         $scope.resetError();
-        alert(id);
         $http.delete('companies/removeCompany/' + id).success(function() {
             $scope.fetchCompanyList();
         }).error(function() {
