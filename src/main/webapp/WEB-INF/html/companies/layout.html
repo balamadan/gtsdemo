@@ -1,8 +1,9 @@
+<div ng-unique></div>
 <div class="alert alert-error" ng-show="error">{{errorMessage}}</div>
 
 <div id="wrapper">
-	<div style="border: 1px solid gray; padding-top: 10px;">
-		<form class="form-horizontal">
+	<div style="border: 1px solid gray; padding-top: 10px; width: 710px;">
+		<form class="form-horizontal" name="frm">
 			<div
 				style="text-align: left; padding-left: 5px; padding-bottom: 5px;"
 				id="subHeaderText">Company Registration</div>
@@ -11,19 +12,20 @@
 				<label class="control-label" for="inputEmail">Company Id</label>
 				<div class="controls">
 					<input type="text" id="inputEmail" style="width: 50px;"
-						ng-minlength=1 ng-maxlength=5 size="5"
-						ng-model="company.companyId" placeholder="Company Id" required
-						min="2"><span
+						ng-minlength=1 ng-maxlength=5 size="5" name="companyId"
+						ng-model="company.companyId" placeholder="Id" required min="2"
+						maxlength="5" ensure-unique ng-disabled="editMode" ><span
 						style="padding-left: 3px; vertical-align: bottom;" id="smallText">*
-						5 character</span>
+						5 character</span> 
+						<small class="error" ng-show="!editMode && frm.companyId.$error.unique">Company Id already in use</small> 
 				</div>
 			</div>
 			<div class="control-group">
 				<label class="control-label" for="inputEmail">Company Name</label>
 				<div class="controls">
-					<input type="text" id="inputEmail" style="width: 250px;"
+					<input type="text" id="inputEmail" style="width: 230px;"
 						ng-model="company.companyName" placeholder="Company Name" required
-						min="2" ng-minlength=1 ng-maxlength=30><span
+						min="2" ng-minlength=1 ng-maxlength=30 maxlength="30"><span
 						style="padding-left: 3px; vertical-align: bottom;" id="smallText">*
 						Max 30 character</span>
 				</div>
@@ -32,9 +34,10 @@
 			<div class="control-group">
 				<label class="control-label" for="inputEmail">Contact Person</label>
 				<div class="controls">
-					<input type="text" id="inputEmail" ng-model="company.contactPerson"
+					<input type="text"  id="inputEmail" ng-model="company.contactPerson"
 						placeholder="Contact Person" required min="2"
-						style="width: 250px;" ng-minlength=1 ng-maxlength=30><span
+						style="width: 230px;" ng-minlength=1 ng-maxlength=30
+						maxlength="30"><span
 						style="padding-left: 3px; vertical-align: bottom;" id="smallText">*
 						Max 30 character</span>
 				</div>
@@ -44,11 +47,11 @@
 
 				<div class="controls">
 					<button type="button" class="btn btn-primary"
-						ng-disabled="!company.companyId || !company.companyName|| !company.contactPerson"
+						ng-disabled="!company.companyId || !company.companyName|| !company.contactPerson || frm.companyId.$error.unique"
 						ng-hide="editMode" ng-click="addNewCompany(company)">Add
 						Company</button>
 					<button type="button" class="btn btn-primary"
-						ng-disabled="!company.companyId || !company.companyName|| !company.contactPerson"
+						ng-disabled="!company.companyId || !company.companyName|| !company.contactPerson "
 						ng-show="editMode" ng-click="updateCompany(company)">Save
 						Company</button>
 					<button type="button" class="btn" ng-click="resetCompanyForm()">Reset</button>
@@ -56,38 +59,50 @@
 			</div>
 		</form>
 	</div>
-	<h5>List of Companies</h5>
 	<div class="alert alert-info" ng-show="companies.length == 0">No
 		company found</div>
-	<div id="scrollTable">
-		<table class="table table-bordered table-striped"
-			ng-show="companies.length > 0">
-			<thead>
+	<h5></h5>
+	<div style="position: relative; width: 100px">
+		<table cellspacing="0" cellpadding="0" border="0"
+			style="border-collapse: collapse">
+			<tr>
+				<td>
+					<table width="100%" cellspacing="0" cellpadding="1" border="1"
+						style="border-collapse: collapse" class=" ">
+						<tr bgcolor="6699CC">
+							<th width="25%" style="text-align: center;">Company Id</th>
+							<th width="25%" style="text-align: center;">Company Name</th>
+							<th width="25%" style="text-align: center;">Contact Person</th>
+							<th width="25%" style="text-align: center;">Action</th>
+						</tr>
+					</table>
+				</td>
+			</tr>
 
-				<tr bgcolor="6699CC">
-					<th style="text-align: center;">Company Id</th>
-					<th style="text-align: center;">Company Name</th>
-					<th style="text-align: center;">Contact Person</th>
-					<th style="text-align: center;">Action</th>
-				</tr>
-			</thead>
-			<tbody>
-				<tr ng-repeat="company in companies | orderBy:predicate">
-					<td hidden="true" style="text-align: center;">{{company.id}}</td>
-					<td>{{company.companyId}}</td>
-					<td>{{company.companyName}}</td>
-					<td>{{company.contactPerson}}</td>
-					<td style="width: 100px; text-align: center;">
-						<button class="btn btn-mini btn-danger"
-							ng-click="removeCompany(company.id);resetCompanyForm()">Remove</button>
-						<button class="btn btn-mini btn-success"
-							ng-click="editCompany(company)">Edit</button>
-					</td>
-				</tr>
-			</tbody>
+			<tr>
+				<td>
+					<div id="scrollTable">
+						<table class="table table-bordered table-striped"
+							ng-show="companies.length > 0">
+							<tr ng-repeat="company in companies | orderBy:predicate">
+								<td hidden="true" style="text-align: center;">{{company.id}}</td>
+								<td width="25%">{{company.companyId}}</td>
+								<td width="25%">{{company.companyName}}</td>
+								<td width="25%">{{company.contactPerson}}</td>
+								<td style="width: 25%; text-align: center;">
+									<button class="btn btn-mini btn-danger"
+										ng-click="removeCompany(company.id);resetCompanyForm()">Remove</button>
+									<button class="btn btn-mini btn-success"
+										ng-click="editCompany(company)">Edit</button>
+								</td>
+							</tr>
+						</table>
+					</div>
+				</td>
+			</tr>
+
 		</table>
 	</div>
-
 </div>
 
 </div>

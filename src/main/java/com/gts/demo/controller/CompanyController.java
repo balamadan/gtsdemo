@@ -2,12 +2,14 @@ package com.gts.demo.controller;
 
 import com.gts.demo.beans.Company;
 import com.gts.demo.service.ICompanyService;
+import com.sun.media.sound.JavaSoundAudioClip;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.LinkedList;
 import java.util.List;
 
 @Controller
@@ -19,7 +21,8 @@ public class CompanyController {
 
 	@RequestMapping("companieslist.json")
 	public @ResponseBody
-	List<Company> getCompanyList() {
+	LinkedList<Company> getCompanyList() {
+
 		return companyService.getAllCompanies();
 	}
 
@@ -28,6 +31,12 @@ public class CompanyController {
 	void addCompany(@RequestBody Company company) {
 		company.setId(null);
 		companyService.addCompany(company);
+	}
+
+	@RequestMapping(value = "/checkCompanyId/{id}", method = RequestMethod.POST)
+	public @ResponseBody
+	Boolean checkCompany(@PathVariable("id") String companyId){
+		return companyService.checkCompanyId(companyId);
 	}
 
 	@RequestMapping(value = "/updateCompany", method = RequestMethod.PUT)

@@ -8,8 +8,10 @@ var CompanyController = function($scope, $http) {
     	$http.get('companies/companieslist.json').success(function(companyList){
             $scope.companies = companyList;
         });
+    	$scope.predicate = '-id';
     };
 
+    
     $scope.addNewCompany = function(company) {
         $scope.resetError();
 
@@ -45,7 +47,6 @@ var CompanyController = function($scope, $http) {
 
     $scope.removeCompany = function(id) {
         $scope.resetError();
-        alert(id);
         $http.delete('companies/removeCompany/' + id).success(function() {
             $scope.fetchCompanyList();
         }).error(function() {

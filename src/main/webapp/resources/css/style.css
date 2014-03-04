@@ -20,7 +20,7 @@ padding:4px;
 	font: normal 14pt arial, sans-serif;
 	color:#fff;
 	top:60px;
-	left:50%;
+	left:45%;
 	position:absolute;
 }
 #subHeaderText{
@@ -103,14 +103,20 @@ padding:4px;
   text-decoration: none;
 }
 
+#scrollTableOuter {
+	overflow:auto;
+	position: absolute;
+    width: 700px;
+    height: 150px;
+    overflow:auto;
+}
 
 #scrollTable {
-	position: absolute;
     border: 1px solid gray;
     padding: 5px;
     width: 700px;
     height: 150px;
-    overflow-y: scroll;
+	overflow:auto;
 }
 
 

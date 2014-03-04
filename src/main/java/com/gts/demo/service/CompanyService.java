@@ -1,6 +1,7 @@
 package com.gts.demo.service;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,8 +18,10 @@ public class CompanyService implements ICompanyService {
 	@Autowired
 	CompanyRepository<Company, Long> companyRepository;
 
-	public List<Company> getAllCompanies() {
-		return companyRepository.findAllActiveCompany();
+	public LinkedList<Company> getAllCompanies() {
+		List dbl = companyRepository.findAllActiveCompanyOrderByIdDesc();
+		LinkedList<Company> l = new LinkedList<Company>(dbl);
+		return l;
 	}
 
 	public Company getCompanyById(Long id) {
@@ -26,22 +29,21 @@ public class CompanyService implements ICompanyService {
 	}
 
 	public void addCompany(Company company) {
-		//company.setId(++id);
-		//companyList.add(company);
+		// company.setId(++id);
+		// companyList.add(company);
 		companyRepository.saveAndFlush(company);
 	}
 
 	public void deleteCompanyById(Long id) {
-		//Company foundCompany = findCompanyById(id);
-		//System.out.println("Delete  -->>" + id + foundCompany);
+		// Company foundCompany = findCompanyById(id);
+		// System.out.println("Delete  -->>" + id + foundCompany);
 		Company foundCompany = companyRepository.findOne(id);
 		foundCompany.setIsDeleted(Boolean.TRUE);
 		updateCompany(foundCompany);
-		/*if (foundCompany != null) {
-			System.out.println("Company found-->>");
-			companyList.remove(foundCompany);
-			id--;
-		}*/
+		/*
+		 * if (foundCompany != null) { System.out.println("Company found-->>");
+		 * companyList.remove(foundCompany); id--; }
+		 */
 	}
 
 	public void deleteAll() {
@@ -50,23 +52,20 @@ public class CompanyService implements ICompanyService {
 	}
 
 	public void updateCompany(Company company) {
-		//Company foundCompany = findCompanyById(company.getId());
+		// Company foundCompany = findCompanyById(company.getId());
 		companyRepository.saveAndFlush(company);
-		/*if (foundCompany != null) {
-			companyList.remove(foundCompany);
-			companyList.add(company);
-		}*/
+		/*
+		 * if (foundCompany != null) { companyList.remove(foundCompany);
+		 * companyList.add(company); }
+		 */
 	}
 
 	private Company findCompanyById(Long id) {
-/*		System.out.println("id -->>" + id);
-		for (Company company : companyList) {
-			System.out.println("Company id-->" + company.getId());
-			if (company.getId().compareTo(id) == 0) {
-				return company;
-			}
-		}
-*/		return companyRepository.findOne(id);
+		/*
+		 * System.out.println("id -->>" + id); for (Company company :
+		 * companyList) { System.out.println("Company id-->" + company.getId());
+		 * if (company.getId().compareTo(id) == 0) { return company; } }
+		 */return companyRepository.findOne(id);
 	}
 
 	public Company saveExpenseCategory(Company company) {
@@ -97,4 +96,8 @@ public class CompanyService implements ICompanyService {
 		this.companyRepository = companyRepository;
 	}
 
+	public Boolean checkCompanyId(String companyId) {
+		List<Company> l = companyRepository.findCompanyByCompanyId(companyId);
+		return (l == null || l.size() < 1) ? true : false;
+	}
 }
